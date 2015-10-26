@@ -34,7 +34,7 @@ chmod 600 ~/.ssh
 [[ ! -z "$SSH_DEBUG" ]] && \
   touch ~/.ssh/config && \
   chmod 600 ~/.ssh/config && \
-  echo "Host *  \nLogLevel DEBUG3" >> ~/.ssh/config && \
+  echo -e "Host *\n  LogLevel DEBUG3" >> ~/.ssh/config && \
   unset SSH_DEBUG
 
 [[ $1 ]] && exec "$@"
