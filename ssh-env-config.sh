@@ -14,7 +14,7 @@
 set -e
 
 mkdir -p ~/.ssh
-chmod 600 ~/.ssh
+chmod 700 ~/.ssh
 
 decode_base64() {
   # Determine the platform dependent base64 decode argument
