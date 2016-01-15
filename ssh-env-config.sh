@@ -35,7 +35,7 @@ decode_base64() {
   unset SSH_CONFIG
 
 [[ ! -z "$SSH_CONFIG_B64" ]] && \
-  echo "$(decode_base64 "$SSH_CONFIG_B64")" > ~/.ssh/config && \
+  decode_base64 "$SSH_CONFIG_B64" > ~/.ssh/config && \
   chmod 600 ~/.ssh/config && \
   unset SSH_CONFIG_B64
 
@@ -47,7 +47,7 @@ decode_base64() {
   unset SSH_KNOWN_HOSTS
 
 [[ ! -z "$SSH_KNOWN_HOSTS_B64" ]] && \
-  echo "$(decode_base64 "$SSH_KNOWN_HOSTS_B64")" > ~/.ssh/known_hosts && \
+  decode_base64 "$SSH_KNOWN_HOSTS_B64" > ~/.ssh/known_hosts && \
   chmod 600 ~/.ssh/known_hosts && \
   unset SSH_KNOWN_HOSTS_B64
 
@@ -59,7 +59,7 @@ decode_base64() {
   unset SSH_PRIVATE_RSA_KEY
 
 [[ ! -z "$SSH_PRIVATE_RSA_KEY_B64" ]] && \
-  echo "$(decode_base64 "$SSH_PRIVATE_RSA_KEY_B64")" > ~/.ssh/id_rsa && \
+  decode_base64 "$SSH_PRIVATE_RSA_KEY_B64" > ~/.ssh/id_rsa && \
   chmod 600 ~/.ssh/id_rsa && \
   unset SSH_PRIVATE_RSA_KEY_B64
 
