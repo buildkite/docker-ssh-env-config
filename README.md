@@ -21,6 +21,7 @@ After adding it to the Dockerfile:
 ```Dockerfile
 #...
 
+# You should use a commit hash rather than "master" in your own version of the below
 RUN curl -fL "https://raw.githubusercontent.com/buildkite/docker-ssh-env-config/master/ssh-env-config.sh" -o /usr/local/bin/ssh-env-config.sh \
     && chmod +x /usr/local/bin/ssh-env-config.sh \
 
