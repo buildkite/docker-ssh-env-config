@@ -21,9 +21,7 @@ After adding it to the Dockerfile:
 ```Dockerfile
 #...
 
-ENV SSH_ENV_CONFIG_COMMIT=master
-
-RUN curl -fL "https://raw.githubusercontent.com/buildkite/docker-ssh-env-config/${SSH_ENV_CONFIG_COMMIT}/ssh-env-config.sh" -o /usr/local/bin/ssh-env-config.sh \
+RUN curl -fL "https://raw.githubusercontent.com/buildkite/docker-ssh-env-config/master/ssh-env-config.sh" -o /usr/local/bin/ssh-env-config.sh \
     && chmod +x /usr/local/bin/ssh-env-config.sh \
 
 ENTRYPOINT ["ssh-env-config.sh","some-command"]
