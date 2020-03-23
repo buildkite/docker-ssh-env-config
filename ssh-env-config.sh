@@ -14,6 +14,23 @@
 
 set -e
 
+if [ -z "$SSH_CONFIG" ] && \
+  [ -z "$SSH_CONFIG_B64" ] && \
+  [ -z "$SSH_CONFIG_PATH" ] && \
+  [ -z "$SSH_KNOWN_HOSTS" ] && \
+  [ -z "$SSH_KNOWN_HOSTS_B64" ] && \
+  [ -z "$SSH_KNOWN_HOSTS_PATH" ] && \
+  [ -z "$SSH_PRIVATE_RSA_KEY" ] && \
+  [ -z "$SSH_PRIVATE_RSA_KEY_B64" ] && \
+  [ -z "$SSH_PRIVATE_RSA_KEY_PATH" ] && \
+  [ -z "$SSH_PRIVATE_DSA_KEY" ] && \
+  [ -z "$SSH_PRIVATE_DSA_KEY_B64" ] && \
+  [ -z "$SSH_PRIVATE_DSA_KEY_PATH" ] && \
+  [ -z "$SSH_DEBUG" ]; then
+    # none of the ENV vars we care about found, so skip the logic in this script
+    [[ $1 ]] && exec "$@"
+fi
+
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
 
