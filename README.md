@@ -4,8 +4,10 @@ A Docker entrypoint wrapper which sets up SSH config files based on the followin
 
 * `SSH_CONFIG` - contents of an SSH config file
 * `SSH_KNOWN_HOSTS` - contents of an SSH known_hosts file
-* `SSH_PRIVATE_RSA_KEY` - contents of an SSH private RSA key
 * `SSH_PRIVATE_DSA_KEY` - contents of an SSH private DSA key
+* `SSH_PRIVATE_ECDSA_KEY` - contents of an SSH private ECDSA key
+* `SSH_PRIVATE_ED25519_KEY` - contents of an SSH private ED25519 key
+* `SSH_PRIVATE_RSA_KEY` - contents of an SSH private RSA key
 * `SSH_DEBUG` - enables SSH debug logging
 
 You can also provide base64 encoded versions by adding `_B64` to the end of the environment variable (e.g. `SSH_PRIVATE_RSA_KEY_B64`, useful for environments that don't support newlines) and `_PATH` for specifying a file to get the contents from (e.g. `SSH_PRIVATE_RSA_KEY_PATH`, useful for secret stores mounted as volumes).

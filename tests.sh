@@ -33,7 +33,7 @@ docker build --tag "$test_docker_image_name" .
 
 echo "--- SSH config dir permissions tests"
 
-docker run -it --rm "$test_docker_image_name" bash -c "test -x ~/.ssh && echo '~/.ssh is executable'"
+docker run -it -e SSH_CONFIG="$test_string" --rm "$test_docker_image_name" bash -c "test -x ~/.ssh && echo '~/.ssh is executable'"
 
 echo "--- SSH_CONFIG tests"
 
@@ -47,17 +47,29 @@ docker run --rm -e SSH_KNOWN_HOSTS="$test_string" "$test_docker_image_name" bash
 docker run --rm -e SSH_KNOWN_HOSTS_B64="$test_string_base64" -v "$(pwd):/tests" "$test_docker_image_name" bash -c "cat ~/.ssh/known_hosts | grep $test_string"
 docker run --rm -e SSH_KNOWN_HOSTS_PATH="/tests/$test_file" -v "$(pwd):/tests" "$test_docker_image_name" bash -c "cat ~/.ssh/known_hosts | grep $test_string"
 
-echo "--- SSH_PRIVATE_RSA_KEY tests"
-
-docker run --rm -e SSH_PRIVATE_RSA_KEY="$test_string" "$test_docker_image_name" bash -c "cat ~/.ssh/id_rsa | grep $test_string"
-docker run --rm -e SSH_PRIVATE_RSA_KEY_B64="$test_string_base64" -v "$(pwd):/tests" "$test_docker_image_name" bash -c "cat ~/.ssh/id_rsa | grep $test_string"
-docker run --rm -e SSH_PRIVATE_RSA_KEY_PATH="/tests/$test_file" -v "$(pwd):/tests" "$test_docker_image_name" bash -c "cat ~/.ssh/id_rsa | grep $test_string"
-
 echo "--- SSH_PRIVATE_DSA_KEY tests"
 
 docker run --rm -e SSH_PRIVATE_DSA_KEY="$test_string" "$test_docker_image_name" bash -c "cat ~/.ssh/id_dsa | grep $test_string"
 docker run --rm -e SSH_PRIVATE_DSA_KEY_B64="$test_string_base64" -v "$(pwd):/tests" "$test_docker_image_name" bash -c "cat ~/.ssh/id_dsa | grep $test_string"
 docker run --rm -e SSH_PRIVATE_DSA_KEY_PATH="/tests/$test_file" -v "$(pwd):/tests" "$test_docker_image_name" bash -c "cat ~/.ssh/id_dsa | grep $test_string"
+
+echo "--- SSH_PRIVATE_ECDSA_KEY tests"
+
+docker run --rm -e SSH_PRIVATE_ECDSA_KEY="$test_string" "$test_docker_image_name" bash -c "cat ~/.ssh/id_ecdsa | grep $test_string"
+docker run --rm -e SSH_PRIVATE_ECDSA_KEY_B64="$test_string_base64" -v "$(pwd):/tests" "$test_docker_image_name" bash -c "cat ~/.ssh/id_ecdsa | grep $test_string"
+docker run --rm -e SSH_PRIVATE_ECDSA_KEY_PATH="/tests/$test_file" -v "$(pwd):/tests" "$test_docker_image_name" bash -c "cat ~/.ssh/id_ecdsa | grep $test_string"
+
+echo "--- SSH_PRIVATE_ED25519_KEY tests"
+
+docker run --rm -e SSH_PRIVATE_ED25519_KEY="$test_string" "$test_docker_image_name" bash -c "cat ~/.ssh/id_ed25519 | grep $test_string"
+docker run --rm -e SSH_PRIVATE_ED25519_KEY_B64="$test_string_base64" -v "$(pwd):/tests" "$test_docker_image_name" bash -c "cat ~/.ssh/id_ed25519 | grep $test_string"
+docker run --rm -e SSH_PRIVATE_ED25519_KEY_PATH="/tests/$test_file" -v "$(pwd):/tests" "$test_docker_image_name" bash -c "cat ~/.ssh/id_ed25519 | grep $test_string"
+
+echo "--- SSH_PRIVATE_RSA_KEY tests"
+
+docker run --rm -e SSH_PRIVATE_RSA_KEY="$test_string" "$test_docker_image_name" bash -c "cat ~/.ssh/id_rsa | grep $test_string"
+docker run --rm -e SSH_PRIVATE_RSA_KEY_B64="$test_string_base64" -v "$(pwd):/tests" "$test_docker_image_name" bash -c "cat ~/.ssh/id_rsa | grep $test_string"
+docker run --rm -e SSH_PRIVATE_RSA_KEY_PATH="/tests/$test_file" -v "$(pwd):/tests" "$test_docker_image_name" bash -c "cat ~/.ssh/id_rsa | grep $test_string"
 
 echo "--- SSH_DEBUG tests"
 
