@@ -5,8 +5,10 @@
 #
 #   SSH_CONFIG - contents of an SSH config file
 #   SSH_KNOWN_HOSTS - contents of a SSH known_hosts file
-#   SSH_PRIVATE_RSA_KEY - contents of a SSH private RSA key
-#   SSH_PRIVATE_DSA_KEY - contents of a SSH private DSA key
+#   SSH_PRIVATE_DSA_KEY - contents of an SSH private DSA key
+#   SSH_PRIVATE_ECDSA_KEY - contents of an SSH private ECDSA key
+#   SSH_PRIVATE_ED25519_KEY - contents of an SSH private ED25519 key
+#   SSH_PRIVATE_RSA_KEY - contents of an SSH private RSA key
 #   SSH_DEBUG - switch to a high debug level 3 for all hosts, to help solve SSH issues
 #
 # The environment variables are unset after the files are created to help
@@ -20,12 +22,18 @@ if [ -z "$SSH_CONFIG" ] && \
   [ -z "$SSH_KNOWN_HOSTS" ] && \
   [ -z "$SSH_KNOWN_HOSTS_B64" ] && \
   [ -z "$SSH_KNOWN_HOSTS_PATH" ] && \
-  [ -z "$SSH_PRIVATE_RSA_KEY" ] && \
-  [ -z "$SSH_PRIVATE_RSA_KEY_B64" ] && \
-  [ -z "$SSH_PRIVATE_RSA_KEY_PATH" ] && \
   [ -z "$SSH_PRIVATE_DSA_KEY" ] && \
   [ -z "$SSH_PRIVATE_DSA_KEY_B64" ] && \
   [ -z "$SSH_PRIVATE_DSA_KEY_PATH" ] && \
+  [ -z "$SSH_PRIVATE_ECDSA_KEY" ] && \
+  [ -z "$SSH_PRIVATE_ECDSA_KEY_B64" ] && \
+  [ -z "$SSH_PRIVATE_ECDSA_KEY_PATH" ] && \
+  [ -z "$SSH_PRIVATE_ED25519_KEY" ] && \
+  [ -z "$SSH_PRIVATE_ED25519_KEY_B64" ] && \
+  [ -z "$SSH_PRIVATE_ED25519_KEY_PATH" ] && \
+  [ -z "$SSH_PRIVATE_RSA_KEY" ] && \
+  [ -z "$SSH_PRIVATE_RSA_KEY_B64" ] && \
+  [ -z "$SSH_PRIVATE_RSA_KEY_PATH" ] && \
   [ -z "$SSH_DEBUG" ]; then
     # none of the ENV vars we care about found, so skip the logic in this script
     [[ $1 ]] && exec "$@"
@@ -79,23 +87,6 @@ decode_base64() {
   chmod 600 ~/.ssh/known_hosts && \
   unset SSH_KNOWN_HOSTS_PATH
 
-## ~/.ssh/id_rsa
-
-[[ ! -z "$SSH_PRIVATE_RSA_KEY" ]] && \
-  echo "$SSH_PRIVATE_RSA_KEY" > ~/.ssh/id_rsa && \
-  chmod 600 ~/.ssh/id_rsa && \
-  unset SSH_PRIVATE_RSA_KEY
-
-[[ ! -z "$SSH_PRIVATE_RSA_KEY_B64" ]] && \
-  decode_base64 "$SSH_PRIVATE_RSA_KEY_B64" > ~/.ssh/id_rsa && \
-  chmod 600 ~/.ssh/id_rsa && \
-  unset SSH_PRIVATE_RSA_KEY_B64
-
-[[ ! -z "$SSH_PRIVATE_RSA_KEY_PATH" && ! -a ~/.ssh/id_rsa ]] && \
-  cp "$SSH_PRIVATE_RSA_KEY_PATH" ~/.ssh/id_rsa && \
-  chmod 600 ~/.ssh/id_rsa && \
-  unset SSH_PRIVATE_RSA_KEY_PATH
-
 ## ~/.ssh/id_dsa
 
 [[ ! -z "$SSH_PRIVATE_DSA_KEY" ]] && \
@@ -112,6 +103,57 @@ decode_base64() {
   cp "$SSH_PRIVATE_DSA_KEY_PATH" ~/.ssh/id_dsa && \
   chmod 600 ~/.ssh/id_dsa && \
   unset SSH_PRIVATE_DSA_KEY_PATH
+
+## ~/.ssh/id_ecdsa
+
+[[ ! -z "$SSH_PRIVATE_ECDSA_KEY" ]] && \
+  echo "$SSH_PRIVATE_ECDSA_KEY" > ~/.ssh/id_ecdsa && \
+  chmod 600 ~/.ssh/id_ecdsa && \
+  unset SSH_PRIVATE_ECDSA_KEY
+
+[[ ! -z "$SSH_PRIVATE_ECDSA_KEY_B64" ]] && \
+  decode_base64 "$SSH_PRIVATE_ECDSA_KEY_B64" > ~/.ssh/id_ecdsa && \
+  chmod 600 ~/.ssh/id_ecdsa && \
+  unset SSH_PRIVATE_ECDSA_KEY_B64
+
+[[ ! -z "$SSH_PRIVATE_ECDSA_KEY_PATH" && ! -a ~/.ssh/id_ecdsa ]] && \
+  cp "$SSH_PRIVATE_ECDSA_KEY_PATH" ~/.ssh/id_ecdsa && \
+  chmod 600 ~/.ssh/id_ecdsa && \
+  unset SSH_PRIVATE_ECDSA_KEY_PATH
+
+## ~/.ssh/id_ed25519
+
+[[ ! -z "$SSH_PRIVATE_ED25519_KEY" ]] && \
+  echo "$SSH_PRIVATE_ED25519_KEY" > ~/.ssh/id_ed25519 && \
+  chmod 600 ~/.ssh/id_ed25519 && \
+  unset SSH_PRIVATE_ED25519_KEY
+
+[[ ! -z "$SSH_PRIVATE_ED25519_KEY_B64" ]] && \
+  decode_base64 "$SSH_PRIVATE_ED25519_KEY_B64" > ~/.ssh/id_ed25519 && \
+  chmod 600 ~/.ssh/id_ed25519 && \
+  unset SSH_PRIVATE_ED25519_KEY_B64
+
+[[ ! -z "$SSH_PRIVATE_ED25519_KEY_PATH" && ! -a ~/.ssh/id_ed25519 ]] && \
+  cp "$SSH_PRIVATE_ED25519_KEY_PATH" ~/.ssh/id_ed25519 && \
+  chmod 600 ~/.ssh/id_ed25519 && \
+  unset SSH_PRIVATE_ED25519_KEY_PATH
+
+## ~/.ssh/id_rsa
+
+[[ ! -z "$SSH_PRIVATE_RSA_KEY" ]] && \
+  echo "$SSH_PRIVATE_RSA_KEY" > ~/.ssh/id_rsa && \
+  chmod 600 ~/.ssh/id_rsa && \
+  unset SSH_PRIVATE_RSA_KEY
+
+[[ ! -z "$SSH_PRIVATE_RSA_KEY_B64" ]] && \
+  decode_base64 "$SSH_PRIVATE_RSA_KEY_B64" > ~/.ssh/id_rsa && \
+  chmod 600 ~/.ssh/id_rsa && \
+  unset SSH_PRIVATE_RSA_KEY_B64
+
+[[ ! -z "$SSH_PRIVATE_RSA_KEY_PATH" && ! -a ~/.ssh/id_rsa ]] && \
+  cp "$SSH_PRIVATE_RSA_KEY_PATH" ~/.ssh/id_rsa && \
+  chmod 600 ~/.ssh/id_rsa && \
+  unset SSH_PRIVATE_RSA_KEY_PATH
 
 ## ssh debug mode
 
